@@ -1,0 +1,34 @@
+name: Manual Workflow Trigger
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Choose an environment"
+        required: true
+        default: "dev"
+        type: choice
+        options:
+          - dev
+          - staging
+          - production
+      version:
+        description: "Deployment Version"
+        required: false
+        default: "latest"
+        type: string
+      debug_mode:
+        description: "Enable Debug Mode"
+        required: false
+        default: "false"
+        type: boolean
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Input Values
+        run: |
+          echo "Environment: ${{ github.event.inputs.environment }}"
+          echo "Version: ${{ github.event.inputs.version }}"
+          echo "Debug Mode: ${{ github.event.inputs.debug_mode }}"
