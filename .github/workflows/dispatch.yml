@@ -1,13 +1,13 @@
 name: Manual Workflow Trigger
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
     inputs:
       environment:
         description: "Choose an environment"
         required: true
         default: "dev"
-        type: choice
-        options:
+        options:  # ❌ `options` will not work without `type: choice`
           - dev
           - staging
           - production
@@ -15,12 +15,11 @@ on: workflow_dispatch
         description: "Deployment Version"
         required: false
         default: "latest"
-        type: string
       debug_mode:
         description: "Enable Debug Mode"
         required: false
         default: "false"
-        type: boolean
+
 
 jobs:
   deploy:
