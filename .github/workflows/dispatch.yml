@@ -1,7 +1,7 @@
 name: Manual Trigger Example
 
-on:[ push ]
-  workflow_dispatch
+on:
+  workflow_dispatch:
     inputs:
       environment:
         description: "Choose the deployment environment"
