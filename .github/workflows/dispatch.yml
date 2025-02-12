@@ -1,7 +1,6 @@
 name: Manual Workflow Trigger
 
-on:
-  workflow_dispatch:
+on:  workflow_dispatch
     inputs:
       environment:
         description: "Choose an environment (dev, staging, production)"
