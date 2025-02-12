@@ -1,27 +1,11 @@
 name: Manual Trigger Example
 
 on:
-  workflow_dispatch
-    inputs:
-      environment:
-        description: "Choose the deployment environment"
-        required: true
-        default: "dev"
-      version:
-        description: "Enter the deployment version"
-        required: false
-        default: "latest"
-      debug_mode:
-        description: "Enable debug mode (true/false)"
-        required: false
-        default: "false"
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Show Input Values
-        run: |
-          echo "Environment: ${{ github.event.inputs.environment }}"
-          echo "Version: ${{ github.event.inputs.version }}"
-          echo "Debug Mode: ${{ github.event.inputs.debug_mode }}"
+        run: echo "Manual workflow triggered!"
