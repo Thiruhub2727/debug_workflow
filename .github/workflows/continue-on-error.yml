@@ -1,0 +1,43 @@
+name: Example Workflow with All Parameters
+
+on: push  # Runs on every push
+
+jobs:
+  example-job:
+    runs-on: ubuntu-latest  # OS where the job runs
+
+    continue-on-error: true  # ✅ The job will continue even if a step fails
+
+    defaults:  # ✅ Sets default shell for `run` commands
+      run:
+        shell: bash
+
+    container:  # ✅ Runs the job inside a Node.js Docker container
+      image: node:16
+
+    services:  # ✅ Defines a PostgreSQL service for database support
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: mydatabase
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Print Node Version
+        run: node -v  # Runs inside Node.js container
+
+      - name: Run a Failing Step
+        run: exit 1  # Simulates a failure
+        continue-on-error: true  # ✅ Allows the workflow to continue
+
+      - name: Connect to PostgreSQL
+        run: |
+          echo "Waiting for PostgreSQL..."
+          sleep 5  # Waits for DB to be ready
+          pg_isready -h localhost -p 5432 -U user
